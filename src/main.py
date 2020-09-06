@@ -5,19 +5,8 @@ from PIL import Image
 from pytube import YouTube
 import cv2
 import numpy as np
-
-# Variables (Video URL, output height and numpy options)
-np.set_printoptions(threshold=np.inf)
-videoURL = str(sys.argv[1])
-outputHeight = int(sys.argv[2])
-
-# Open video in link and download it
-video = YouTube(videoURL).streams.get_highest_resolution().download('./temp')
-videoPath = video.title()
-print(videoPath)
-
-# Start timer
-starttime = time.time()
+import tkinter as tk
+import youtubeInterface
 
 
 def calculateAverage(currentFrame):
@@ -58,22 +47,39 @@ def outputVideoAsFrames():
         count += 1
 
 
-# Open VideoCapture and create a new image to output to
-vidcap = cv2.VideoCapture(videoPath)
-outputSize = (int(vidcap.get(7)), outputHeight)
-outputImage = Image.new('RGB', outputSize)
+def main():
+    # Variables (Video URL, output height and numpy options)
+    np.set_printoptions(threshold=np.inf)
+    videoURL = str(sys.argv[1])
+    outputHeight = int(sys.argv[2])
 
-# Use the VideoCapture to produce the image, save it and close
-outputVideoAsFrames()
-outputPath = './output/' + YouTube(videoURL).title + '_output.png'
-outputImage.save(outputPath)
-vidcap.release()
+    # Open video in link and download it
+    video = YouTube(
+        videoURL).streams.get_highest_resolution().download('../temp')
+    videoPath = video.title()
+    print(videoPath)
 
-# Remove all temporary files
-shutil.rmtree("temp")
+    # Start timer
+    starttime = time.time()
+    # Open VideoCapture and create a new image to output to
+    vidcap = cv2.VideoCapture(videoPath)
+    outputSize = (int(vidcap.get(7)), outputHeight)
+    outputImage = Image.new('RGB', outputSize)
 
-# Stop timer and calculate final time
-endtime = time.time()
-totaltime = endtime - starttime
+    # Use the VideoCapture to produce the image, save it and close
+    outputVideoAsFrames()
+    outputPath = '../output/' + YouTube(videoURL).title + '_output.png'
+    outputImage.save(outputPath)
+    vidcap.release()
 
-print('Full output finished in %d seconds' % totaltime)
+    # Remove all temporary files
+    shutil.rmtree("temp")
+
+    # Stop timer and calculate final time
+    endtime = time.time()
+    totaltime = endtime - starttime
+    print('Full output finished in %d seconds' % totaltime)
+
+
+if __name__ == "__main__":
+    main()
