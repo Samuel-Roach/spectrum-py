@@ -8,11 +8,12 @@ class SpectrumApp(tk.Frame):
         self.master.geometry('960x550')
 
         self.main_frame = tk.Frame(master)
+        self.main_frame.grid(row=0, column=0)
 
         self.create_menu(self.main_frame)
         master.config(menu=self.menubar)
 
-        self.create_widgets()
+        self.create_youtube_widgets(self.main_frame)
 
     def create_menu(self, frame):
         self.menubar = tk.Menu(frame)
@@ -23,5 +24,15 @@ class SpectrumApp(tk.Frame):
         spectrum_menu.add_command(label='Movie') #Access IMDB database or some shit
         self.menubar.add_cascade(label='Spectrum', menu=spectrum_menu)
 
-    def create_widgets(self):
-        return
+    def create_youtube_widgets(self, frame):
+        self.link_frame = tk.Frame(frame)
+        self.link_frame.grid(row=0, column=0)
+
+        self.youtube_link_entry = tk.Entry(self.link_frame, width=80)
+        self.youtube_link_entry.insert(0, "YouTube Link")
+        self.youtube_link_entry.grid(row=0, column=0, sticky=(tk.E, tk.W))
+
+        self.youtube_find_button = tk.Button(self.link_frame, text="Find", width=8)
+        self.youtube_find_button.grid(row=0, column=1, padx=5)
+
+        
