@@ -25,14 +25,28 @@ class SpectrumApp(tk.Frame):
         self.menubar.add_cascade(label='Spectrum', menu=spectrum_menu)
 
     def create_youtube_widgets(self, frame):
-        self.link_frame = tk.Frame(frame)
-        self.link_frame.grid(row=0, column=0)
+        self.setup_frame = tk.Frame(frame)
+        self.setup_frame.grid(row=0, column=0)
 
-        self.youtube_link_entry = tk.Entry(self.link_frame, width=80)
-        self.youtube_link_entry.insert(0, "YouTube Link")
-        self.youtube_link_entry.grid(row=0, column=0, sticky=(tk.E, tk.W))
+        self.youtube_link_entry = tk.Entry(self.setup_frame, width=80)
+        self.youtube_link_entry.insert(0, 'YouTube Link')
+        self.youtube_link_entry.grid(row=0, column=0, columnspan=4, sticky=(tk.E, tk.W), pady=10)
 
-        self.youtube_find_button = tk.Button(self.link_frame, text="Find", width=8)
-        self.youtube_find_button.grid(row=0, column=1, padx=5)
+        self.youtube_canvas_width_label = tk.Label(self.setup_frame, text='Width')
+        self.youtube_canvas_width_label.grid(row=1, column=0, sticky=tk.E)
 
+        self.youtube_canvas_width_entry = tk.Entry(self.setup_frame, width=20)
+        self.youtube_canvas_width_entry.grid(row=1, column=1, sticky=tk.W)
+        self.youtube_canvas_width_entry.insert(0, 'From input')
+        self.youtube_canvas_width_entry.config(state='disabled')
+
+        self.youtube_canvas_height_label = tk.Label(self.setup_frame, text='Height')
+        self.youtube_canvas_height_label.grid(row=1, column=2, sticky=tk.E)
+    
+        self.youtube_canvas_height_entry = tk.Entry(self.setup_frame, width=20)
+        self.youtube_canvas_height_entry.grid(row=1, column=3, sticky=tk.W)
+        self.youtube_canvas_height_entry.insert(0, '100')
+
+        self.youtube_run_button = tk.Button(self.setup_frame, text='Run', width=20)
+        self.youtube_run_button.grid(row=2, column=0, columnspan=4, pady=10)
         
