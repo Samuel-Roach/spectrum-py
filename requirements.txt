@@ -1,0 +1,4 @@
+numpy=1.19.3
+opencv-python
+Pillow
+git+https://github.com/nficano/pytube
