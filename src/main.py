@@ -13,18 +13,18 @@ def calculate_average(current_frame):
 
     # Rather than RGB its BGR???
     # Populate arrays with all the Red, Green and Blue values for frame
-    rArray = current_frame[0:, 0:, 2]
-    gArray = current_frame[0:, 0:, 1]
-    bArray = current_frame[0:, 0:, 0]
+    r_array = current_frame[0:, 0:, 2]
+    g_array = current_frame[0:, 0:, 1]
+    b_array = current_frame[0:, 0:, 0]
 
     # Average the arrays
-    rAverage = int(np.average(rArray))
-    gAverage = int(np.average(gArray))
-    bAverage = int(np.average(bArray))
+    r_average = int(np.average(r_array))
+    g_average = int(np.average(g_array))
+    b_average = int(np.average(b_array))
 
     # Output the final colorz
-    finalColor = (rAverage, gAverage, bAverage)
-    return finalColor
+    final_color = (r_average, g_average, b_average)
+    return final_color
 
 
 def output_video_as_frames(vidcap, output_height, output_image):
