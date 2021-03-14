@@ -49,13 +49,18 @@ def output_video_as_frames(vidcap, output_height, output_image):
 
 def argument_handler(argv):
     parser = argparse.ArgumentParser(description="Generate image data from videos")
+    parser.add_argument("-y", "--youtube", required=False, default="https://www.youtube.com/watch?v=c91fKWuBdss", help="Link to the YouTube video you wish to process")
+    parser.add_argument("-s", "--size", required=False, default=100, help="Height of the output image")
+    return parser.parse_args(argv)
 
 
-def main():
+def main(argv):
     # Variables (Video URL, output height and numpy options)
     np.set_printoptions(threshold=np.inf)
-    video_url = str(sys.argv[1])
-    output_height = int(sys.argv[2])
+    args = argument_handler(argv)
+
+    video_url = str(args.youtube)
+    output_height = int(args.size)
 
     # Open video in link and download it
     temp_path = os.path.join(os.path.dirname(
@@ -91,4 +96,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
