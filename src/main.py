@@ -38,7 +38,7 @@ def output_video_as_frames(vidcap, output_height, output_image):
 
         # Find average color of frame and fill in row
         frame_color = calculate_average(image)
-        for y in range(output_height):
+        for y in range(1, output_height):
             current_pixel = (count - 1, y)
             output_image.putpixel(current_pixel, frame_color)
 
@@ -49,8 +49,8 @@ def output_video_as_frames(vidcap, output_height, output_image):
 
 def argument_handler(argv):
     parser = argparse.ArgumentParser(description="Generate image data from videos")
-    parser.add_argument("-y", "--youtube", required=False, default="https://www.youtube.com/watch?v=c91fKWuBdss", help="Link to the YouTube video you wish to process")
-    parser.add_argument("-s", "--size", required=False, default=100, help="Height of the output image")
+    parser.add_argument("-y", "--youtube", required=False, default="https://www.youtube.com/watch?v=dQw4w9WgXcQ", help="Link to the YouTube video you wish to process")
+    parser.add_argument("-s", "--size", required=False, default=500, help="Height of the output image")
     return parser.parse_args(argv)
 
 
