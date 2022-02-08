@@ -1,5 +1,4 @@
-numpy==1.19.3
+numpy
 opencv-python
 Pillow
-pytube
-pyqt5
+pytube3
