@@ -19,6 +19,12 @@ print(VIDEO_PATH)
 # Start timer
 START_TIME = time.time()
 
+def download_youtube_url(youtube_url):
+    try:
+        youtube_video = YouTube(youtube_url).streams.get_highest_resolution().download('./temp')
+    except Exception as e:
+        print('Could not download youtube video')
+        raise
 
 def calculate_average(current_frame):
 

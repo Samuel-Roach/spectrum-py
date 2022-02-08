@@ -1,4 +1,5 @@
 import tkinter as tk
+from spectrum_function import SpectrumFunction
 
 class SpectrumApp(tk.Frame):
 
@@ -6,6 +7,8 @@ class SpectrumApp(tk.Frame):
         super().__init__(master)
         self.master = master
         self.master.geometry('960x550')
+
+        self.spectrum_helper = SpectrumFunction()
 
         self.main_frame = tk.Frame(master)
         self.main_frame.grid(row=0, column=0)
