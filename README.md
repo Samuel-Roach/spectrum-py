@@ -11,3 +11,7 @@ Spectrum-py is a lightweight program written to help you easily produce spectrum
 A spectrum is an image created from averaging the colour of every frame in a video, and putting them next to each other. The idea is to create a global view of the dominant colours throughout a video.
 
 ## How to run
+```
+cd spectrum-py
+py ./src/main.py
+```
