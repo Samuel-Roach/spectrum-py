@@ -19,14 +19,21 @@ print(VIDEO_PATH)
 # Start timer
 START_TIME = time.time()
 
-def download_youtube_url(youtube_url):
+def download_youtube_url(youtube_url, file_name="default_file"):
+    """
+        Pass in a youtube_url and return the path of the downloaded video
+    """
     try:
-        youtube_video = YouTube(youtube_url).streams.get_highest_resolution().download('./temp')
+        youtube_video = YouTube(youtube_url).streams.get_highest_resolution().download(output_path='./temp', filename=file_name)
+        return youtube_video.title()
     except Exception as e:
         print('Could not download youtube video')
         raise
 
 def calculate_average(current_frame):
+    """
+        Take in a frame of a video and return the tuple representation of each RGB value averaged
+    """
 
     # Rather than RGB its BGR???
     # Populate arrays with all the Red, Green and Blue values for frame
@@ -44,10 +51,13 @@ def calculate_average(current_frame):
     return final_color
 
 
-def output_video_as_frames():
+def output_video_as_frames(vidcap, output_image, output_height):
+    """
+        Populate the output_image with the averages of the vidcap
+    """
 
     # Read first frame and return whether it's there
-    success, image = VIDCAP.read()
+    success, image = vidcap.read()
     count = 0
 
     # While there are still frames left
@@ -55,14 +65,17 @@ def output_video_as_frames():
 
         # Find average color of frame and fill in row
         frame_color = calculate_average(image)
-        for y in range(OUTPUT_HEIGHT):
+        for y in range(output_height):
             current_pixel = (count - 1, y)
-            OUTPUT_IMAGE.putpixel(current_pixel, frame_color)
+            output_image.putpixel(current_pixel, frame_color)
 
         # Move to next frame and increase frame count
-        success, image = VIDCAP.read()
+        success, image = vidcap.read()
         count += 1
 
+
+def cleanup(path="temp"):
+    shutil.rmtree(path)
 
 # Open VideoCapture and create a new image to output to
 VIDCAP = cv2.VideoCapture(VIDEO_PATH)
@@ -70,13 +83,13 @@ OUTPUT_SIZE = (int(VIDCAP.get(7)), OUTPUT_HEIGHT)
 OUTPUT_IMAGE = Image.new('RGB', OUTPUT_SIZE)
 
 # Use the VideoCapture to produce the image, save it and close
-output_video_as_frames()
+output_video_as_frames(VIDCAP, OUTPUT_IMAGE, OUTPUT_HEIGHT)
 OUTPUT_PATH = './output/' + YouTube(VIDEO_URL).title + '_output.png'
 OUTPUT_IMAGE.save(OUTPUT_PATH)
 VIDCAP.release()
 
 # Remove all temporary files
-shutil.rmtree("temp")
+cleanup()
 
 # Stop timer and calculate final time
 END_TIME = time.time()
